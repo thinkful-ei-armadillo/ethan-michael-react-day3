@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import './Accordion.css';
+
 class Accordion extends Component{
     state = {
       openSectionID: null,
@@ -11,13 +13,17 @@ class Accordion extends Component{
 
     createSections() {
 
+      if (!this.props.sections || this.props.sections.length === 0) {
+        return;
+      }
+
       return this.props.sections.map((section, index) => {
 
         if (this.state.openSectionID === index) {
 
           // Open
           return (
-            <li>
+            <li id={index} key={index}>
               <button onClick={() => { this.openSection(index) }} >{section.title}</button>
               <p>{section.content}</p>
             </li>
@@ -26,7 +32,7 @@ class Accordion extends Component{
 
           // Closed
           return (
-            <li>
+            <li id={index} key={index}>
               <button onClick={() => { this.openSection(index) }} >{section.title}</button>
             </li>
           );
